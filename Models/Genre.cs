@@ -14,7 +14,7 @@ namespace DreamGarden.Models
 
         public List<Genre> Flowers { get; set; } //one Genre can have multiple flowers
 
-        
+
 
 
     }
