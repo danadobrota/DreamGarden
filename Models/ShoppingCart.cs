@@ -6,7 +6,9 @@ namespace DreamGarden.Models
     [Table("ShoppingCart")]
     public class ShoppingCart
     {
-        public int Id { get; set; }
+        public int Id { get; set; } //primary key in the database
+
+        //annotations for the properties
         [Required]
         public string UserId { get; set; }
 

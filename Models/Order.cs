@@ -6,9 +6,11 @@ namespace DreamGarden.Models
     [Table("Order")]
     public class Order
     {
-        public int Id { get; set; }
+        public int Id { get; set; } //primary key in the database
         public string UserId { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.UtcNow; //default time is now
+
+        //annotations for the properties
         [Required]
         public int OrderStatusId { get; set; }
 

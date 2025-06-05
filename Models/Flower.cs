@@ -6,26 +6,32 @@ namespace DreamGarden.Models
     [Table("Flower")]
     public class Flower
     {
-        public int Id { get; set; }
+        public int Id { get; set; } //primary key in the database
 
+        //annotations for the properties
         [Required]
         [MaxLength(50)]
         public string? FlowerName { get; set; }
-        [Required]
 
+        //annotations for the properties
+        [Required]
         public string LatinName { get; set; }
-        [Required]
 
+        //anotations for the properties
+        [Required]
         public string Description { get; set; }
-        [Required]
 
+        //annotations for the properties
+        [Required]
         public double Price { get; set; }
 
+        //annotations for the properties
         public string? Image { get; set; }
+
+        //annotations for the properties
         [Required]
-
-
         public int GenreId { get; set; }
+
 
         public Genre Genre { get; set; } //connection with the Genre database; one flower has only one genre
 
