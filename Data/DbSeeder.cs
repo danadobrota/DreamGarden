@@ -25,7 +25,17 @@ namespace DreamGarden.Data
 
             };
 
-            
+            var ifUserExists = await userMgr.FindByEmailAsync(admin.Email);
+            if(ifUserExists == null)
+            {
+                //create the user
+                var result = await userMgr.CreateAsync(admin, "secretpassword");
+                if (result.Succeeded)
+                {
+                    //add the user to admin role
+                    await userMgr.AddToRoleAsync(admin, Roles.Admin.ToString());
+                }
+            }
         }
     }
 }
