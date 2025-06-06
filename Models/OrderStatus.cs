@@ -8,9 +8,13 @@ namespace DreamGarden.Models
     {
         public int ID { get; set; } //primary key in the database
 
+         //annotations for the properties
+        [Required]
+        public int StatusId { get; set; }
+
         //annotations for the properties
         [Required]
-        [MaxLength(20)] 
+        [MaxLength(20)]
         public string StatusName { get; set; }
 
 

@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using DreamGarden.Constants; //for the role definition
 
 namespace DreamGarden.Areas.Identity.Pages.Account
 {
@@ -120,6 +121,9 @@ namespace DreamGarden.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    //user succesfully created
+                    //adding role to user
+                    await _userManager.AddToRoleAsync(user, Roles.User.ToString());
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
