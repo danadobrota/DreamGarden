@@ -29,7 +29,7 @@ namespace DreamGarden.Data
             if(ifUserExists == null)
             {
                 //create the user
-                var result = await userMgr.CreateAsync(admin, "secretpassword");
+                var result = await userMgr.CreateAsync(admin, "Secretpassword123!");
                 if (result.Succeeded)
                 {
                     //add the user to admin role
