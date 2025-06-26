@@ -26,7 +26,7 @@ public class ReportsController : Controller
             //end date is today
             DateTime endDate = eDate ?? DateTime.UtcNow;
 
-
+            //GetTopNSellingFlowersByDate is a method in the ReportRepository that calls the stored procedure to get the top 5 selling flowers
             var topSellingFlowers = await _reportRepository.GetTopNSellingFlowersByDate(startDate, endDate);
            
             var vm = new TopNSoldFlowersVm(startDate, endDate, topSellingFlowers);
@@ -43,7 +43,7 @@ public class ReportsController : Controller
     }
 
 
-    public async Task<ActionResult> TotalSalesperMonth(DateTime? sDate = null, DateTime? eDate = null)
+    public async Task<ActionResult> TotalSalesPerMonth(DateTime? sDate = null, DateTime? eDate = null)
     {
         try
         {

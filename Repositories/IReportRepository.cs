@@ -5,7 +5,8 @@
     {
         Task<IEnumerable<TopNSoldFlowerModel>> GetTopNSellingFlowersByDate(DateTime startDate, DateTime endDate);
 
-        Task<IEnumerable<TopNSoldFlowerModel>> GetTotalSalesPerMonth(DateTime startDate, DateTime endDate);    }
+        Task<IEnumerable<TotalSoldProductModel>> GetTotalSalesPerMonth(DateTime startDate, DateTime endDate);
+    }
 
 
 
