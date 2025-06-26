@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Order> 
+@{
+    
+}
+
+
+<div style="width:100%" class="mt-2">
+    @* Generate a back button on the my order display page *@
+    @* Goes back to that page when clicking on the Back page *@
+    <a href="/Identity/Account/Manage" class="btn btn-primary my-2">Back</a>
+
+    <h5>My Orders</h5>
+    @* check conditions first *@
+    @if (Model != null && Model.Count()>0)
+    {
+        <table class="table table-striped">
+            <tr>
+                <th>OrderDate</th>
+                <th>OrderStatus</th>
+            </tr>
+            @foreach(var order in Model)
+                {
+                <tr>
+                    @* Display the date and the order status each time *@
+                    <td>@order.CreateDate.ToString("dd/MM/yyyy")</td>
+                    <td>@order.OrderStatus.StatusName</td>
+                   
+                        
+                    }
+                </tr>
+                 @if (order.OrderDetail != null && order.OrderDetail.Count() > 0)
+                 {
+                <tr>
+                    @* Create a new row and display the table *@
+                    <td>
+                        <table class="table table-striped">
+                            @* First row is displaying total *@
+                            <tr>
+                                    <td>
+                                        Total:
+                                    </td>
+                                    <td>
+                                         @(order.OrderDetail.Select(item=>item.Flower.Price * item.Quantity).Sum())
+                                    </td>
+
+                                   
+                                </tr>
+                             <tr>
+                                <th>Flower</th>
+                             @* <th>Image</th> *@
+                                <th>Genre</th>
+                                <th>Unit Price(EUR)</th>
+                                <th>Total Price</th>
+                             </tr>
+                             @foreach (var item in order.OrderDetail)
+                             {
+                                
+                                <tr>
+                                    @* Display Flower Name in cart *@
+                                    <td>@item.Flower.FlowerName</td>
+                                     @*  <td>
+                        
+                                 @if(string.IsNullOrEmpty(item.Flower.Image))
+                                {
+                            
+                                 //<img src="@item.Flower.Image" alt="@item.Flower.FlowerName" style="width:50px;height:50px;" />
+                                <th>No Image</th>
+                                }
+                                else
+                                {
+                                <img src="/img/@item.Flower.Image" style="width:50px;height:50px" />
+
+                                }  
+                       
+
+                                </td>  *@
+                                @* Display Genre *@
+                                <td>@item.Flower.Genre.GenreName</td>
+                                @* Display Price *@
+                                <td>@item.Flower.Price X @item.Quantity</td>
+                                @* Total Price *@
+                                <td>@(item.Flower.Price * @item.Quantity)</td>
+                                                               
+                                </tr>
+                         }
+                        </table>
+
+                    </td>
+                </tr>
+                <tr>
+                        @(order.OrderDetail.Select(item=>item.Flower.Price *item.Quantity).Sum())
+                </tr>
+                }
+                }
+            </table>
+       
+       
+    }
+
+    else
+    {
+        <h5>No orders</h5>
+    }
+</div>

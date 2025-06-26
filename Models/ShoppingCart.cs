@@ -14,5 +14,7 @@ namespace DreamGarden.Models
 
         public bool IsDeleted { get; set; } = false; //by default it will false.
 
+        public ICollection<CartDetail> CartDetails { get; set; }
+
     }
 }

@@ -39,6 +39,9 @@ namespace DreamGarden.Data.Migrations
                     b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
 
+                    b.Property<double>("UnitPrice")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FlowerId");
@@ -78,6 +81,9 @@ namespace DreamGarden.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GenreId");
@@ -116,14 +122,40 @@ namespace DreamGarden.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MobileNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<int>("OrderStatusId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -167,11 +199,11 @@ namespace DreamGarden.Data.Migrations
 
             modelBuilder.Entity("DreamGarden.Models.OrderStatus", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
@@ -181,7 +213,7 @@ namespace DreamGarden.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("OrderStatus");
                 });
@@ -204,6 +236,28 @@ namespace DreamGarden.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ShoppingCart");
+                });
+
+            modelBuilder.Entity("DreamGarden.Models.Stock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FlowerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlowerId")
+                        .IsUnique();
+
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -351,12 +405,10 @@ namespace DreamGarden.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -393,12 +445,10 @@ namespace DreamGarden.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -417,7 +467,7 @@ namespace DreamGarden.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("DreamGarden.Models.ShoppingCart", "ShoppingCart")
-                        .WithMany()
+                        .WithMany("CartDetails")
                         .HasForeignKey("ShoppingCartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -473,6 +523,17 @@ namespace DreamGarden.Data.Migrations
                     b.Navigation("Flower");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("DreamGarden.Models.Stock", b =>
+                {
+                    b.HasOne("DreamGarden.Models.Flower", "Flower")
+                        .WithOne("Stock")
+                        .HasForeignKey("DreamGarden.Models.Stock", "FlowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flower");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -531,6 +592,9 @@ namespace DreamGarden.Data.Migrations
                     b.Navigation("CartDetail");
 
                     b.Navigation("OrderDetail");
+
+                    b.Navigation("Stock")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DreamGarden.Models.Genre", b =>
@@ -541,6 +605,11 @@ namespace DreamGarden.Data.Migrations
             modelBuilder.Entity("DreamGarden.Models.Order", b =>
                 {
                     b.Navigation("OrderDetail");
+                });
+
+            modelBuilder.Entity("DreamGarden.Models.ShoppingCart", b =>
+                {
+                    b.Navigation("CartDetails");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@* @model IEnumerable<Flower> *@
+@model FlowerDisplayModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -12,19 +14,28 @@
 
 <div class="my-2"">
     
-   <form class="row row-cols-lg-auto g-3 align-items-center">
+   <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
    
   <!--Add genre selection-->
   <div class="col-12">
-    <label class="visually-hidden" for="inlineFormSelectPref">Genres</label>
-    <select class="form-select" id="genreId">
+    <label class="visually-hidden" for="genreId">Genres</label>
+    <select class="form-select" id="genreId" name="genreId">
+        <!--Take genres from database-->
       <option selected>Choose...</option>
-      <option value="1">Climbing Plants</option>
+                @foreach(var genre in Model.Genres)
+                {
+                @* <option value="@genre.Id">@genre.GenreName</option> *@  
+                <!--optimized search-->
+                <option selected="@(genre.Id==Model.GenreId)" value = "@genre.Id" > @genre.GenreName </option>
+                } 
+                 
+      <!--Static definition of genres-->
+   @* <option value="1">Climbing Plants</option>
       <option value="2">Evergreens</option>
       <option value="3">Full Sun Plants</option>
       <option value="4">Perennials</option>
       <option value="5">Shade Plants</option>
-      <option value="6">Water Plants</option>
+      <option value="6">Water Plants</option> *@ 
       
       
 
@@ -33,17 +44,18 @@
 
   <!--Add search bar-->
    <div class="col-12">
-        <label class="visually-hidden" for="inlineFormInputGroupUsername">Search by flower name</label>
+        <label class="visually-hidden" for="sterm">Search by flower name</label>
          <div class="input-group">
                 <div class="input-group-text"></div>
-                <input type="text" class="form-control" id="" placeholder="Search by flower name">
+                <input type="text" class="form-control" value="@Model.STerm" id="sterm" name="sterm" placeholder="Search by flower name">
                  </div>
           </div>
 
  
-
+  <!--Definition of buttons for submitting search and reset-->
   <div class="col-12">
-    <button type="submit" class="btn btn-primary"Search products</button>
+    <button type="submit" class="btn btn-primary">Search</button>
+    <a href="/Home/Index" class="btn btn-primary">Reset</a>
   </div>
 </form>
 
@@ -54,32 +66,439 @@
 
 
 <div class="w-100 d-flex flex-wrap">
-    @* @for(int i = 1; i <= 24; i++)
+    @* @for(var int i = 1; i <= 36; i++) *@
+    @foreach(var flower in Model.Flowers)
     {
         <div class="card mx-2 mb-4 mt-5" style="width: 16rem;">
-            <img src="~/img/Tulips.jpg" class="card-img-top" alt="...">
+            
+            @* <img src="~/img/Hydrangea blue.jpg" class="card-img-top" alt="..."> *@
             <div class="card-body">
-                <h5 class="card-title">Flower Name</h5>
+                <h5 class="card-title">@flower.FlowerName</h5>
                 <p class="card-text">
-                Latin description:
-                Type:
-                Price:
+                   
+                    @* Id:@flower.Id *@
+
+                    @switch(flower.Id)
+                    {
+                        case 3:
+                            <img src="~/img/Wisteria.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 5:
+                            <img src="~/img/Ipomea lila.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 9:
+                            <img src="~/img/Ipomea pink.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 11:
+                            <img src="~/img/Cryptomeria japonica.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 12:
+                            <img src="~/img/Pinus nera.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 16:
+                            <img src="~/img/Juniperus Blue Chip.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 19:
+                            <img src="~/img/Juniperus Blue Star.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 20:
+                            <img src="~/img/Juniperus Holger.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 21:
+                            <img src="~/img/Picea abies.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 24:
+                            <img src="~/img/Picea glauca globosa.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 25:
+                            <img src="~/img/Picea pungens.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 26:
+                             <img src="~/img/Larix weeper.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 27:
+                            <img src="~/img/Eunoymous japonica.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 28:
+                            <img src="~/img/Lingustrum vulgaris.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 29:
+                            <img src="~/img/Weigela.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 32:
+                            <img src="~/img/Roses yellow.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 34:
+                            <img src="~/img/Roses pink.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 38:
+                        <img src="~/img/Lavanda.jpg" class="card-img-top" alt="...">
+                        break;
+
+                        case 43:
+                            <img src="~/img/Acer palmatum Orange Dream.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 46:
+                            <img src="~/img/Acer palmatum red select.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 47:
+                            <img src="~/img/Acer palmatum Weeper.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 50:
+                            <img src="~/img/Imperata Red Baron.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 52:
+                            <img src="~/img/Pampas.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 54:
+                            <img src="~/img/Paeonia.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 56:
+                            <img src="~/img/Bambus nandina.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 57:
+                            <img src="~/img/Dracilla berberis.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 59:
+                            <img src="~/img/Primula.jpg" class="card-img-top" alt="...">
+                            break;
+
+
+                        case 62:
+                            <img src="~/img/Azaleea red.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 66:
+                            <img src="~/img/Azaleea lila.jpg" class="card-img-top" alt="...">
+                            break;
+
+                         case 67:
+                            <img src="~/img/Azaleea pink.jpg" class="card-img-top" alt="...">
+                            break;
+
+                         case 69:
+                            <img src="~/img/Hydrangea Annabelle.jpg" class="card-img-top" alt="...">
+                            break;
+
+                         case 72:
+                            <img src="~/img/Hydrangea blue.jpg" class="card-img-top" alt="...">
+                            break;
+
+                         case 74:
+                            <img src="~/img/Hydrangea pink.jpg" class="card-img-top" alt="...">
+                            break;
+
+                         case 75:
+                            <img src="~/img/Hydrangea red.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 76:
+                            <img src="~/img/Nymphae White.jpg" class="card-img-top" alt="...">
+                            break;
+
+                        case 78:
+                            <img src="~/img/Nymphae Pink.jpg" class="card-img-top" alt="...">
+                            break;
+
+                      
+
+                        default:
+                        break;
+                    } 
+                    @* @if (@flower.Id == 3)
+                    {
+                        <img src="~/img/Wisteria.jpg" class="card-img-top" alt="...">
+                    }
+                    @if (@flower.Id == 5)
+                    {
+                        <img src="~/img/Ipomea lila.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 9)
+                    {
+                        <img src="~/img/Ipomoea pink.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 11)
+                    {
+                        <img src="~/img/Cryptomeria japonica.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 12)
+                    {
+                        <img src="~/img/Pinus nera.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 16)
+                    {
+                        <img src="~/img/Juniperus Blue Chip.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 19)
+                    {
+                        <img src="~/img/Juniperus Blue Star.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 20)
+                    {
+                        <img src="~/img/Juniperus Holger.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 21)
+                    {
+                        <img src="~/img/Picea abies.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 24)
+                    {
+                        <img src="~/img/Picea glauca globosa.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 25)
+                    {
+                        <img src="~/img/Picea pungens.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 26)
+                    {
+                        <img src="~/img/Larix weeper.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 27)
+                    {
+                        <img src="~/img/Eunoymous japonica.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 28)
+                    {
+                        <img src="~/img/Lingustrum vulgaris.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 29)
+                    {
+                        <img src="~/img/Weigela.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 32)
+                    {
+                        <img src="~/img/Roses yellow.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 34)
+                    {
+                        <img src="~/img/Roses pink.jpg" class="card-img-top" alt="...">
+                    }
+
+
+                    @if (@flower.Id == 38)
+                    {
+                        <img src="~/img/Lavanda.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 43)
+                    {
+                        <img src="~/img/Acer palmatum Orange Dream.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 46)
+                    {
+                        <img src="~/img/Acer palmatum red select.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 47)
+                    {
+                        <img src="~/img/Acer palmatum Weeper.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 50)
+                    {
+                        <img src="~/img/Imperata Red Baron.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 52)
+                    {
+                        <img src="~/img/Pampas.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 54)
+                    {
+                        <img src="~/img/Paeonia.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 56)
+                    {
+                        <img src="~/img/Bambus nandina.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 57)
+                    {
+                        <img src="~/img/Dracilla berberis.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 59)
+                    {
+                        <img src="~/img/Primula.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 62)
+                    {
+                        <img src="~/img/Azaleea red.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 66)
+                    {
+                        <img src="~/img/Azallea lila.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 67)
+                    {
+                        <img src="~/img/Azaleea pink.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 69)
+                    {
+                        <img src="~/img/Hydrangea Annabelle.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 72)
+                    {
+                        <img src="~/img/Hydrangea blue.jpg" class="card-img-top" alt="...">
+                    }
+
+                    @if (@flower.Id == 74)
+                    {
+                        <img src="~/img/Hydrangea pink.jpg" class="card-img-top" alt="...">
+                    }
+
+
+                    @if (@flower.Id == 75)
+                    {
+                        <img src="~/img/Hydrangea red.jpg" class="card-img-top" alt="...">
+                    }
+
+               
+                    @if (@flower.Id == 76)
+                    {
+                        <img src="~/img/Nymphae White.jpg" class="card-img-top" alt="...">
+                    }
+
+
+                    @if (@flower.Id == 78)
+                    {
+                        <img src="~/img/Nymphaea Pink.jpg" class="card-img-top" alt="...">
+                    } *@
+                    <br> Latin: @flower.LatinName
+                    <br> Genre: @flower.GenreName
+                    <br> Price: @flower.Price
+                    <br /> Quantity: <b>@flower.Quantity</b>
+
                 </p>
-                <a href="#" class="btn btn-primary">Add to cart</a>
+                @* <button type="button" onclick="add(@flower.Id)" class="btn btn-primary">Add to cart</button> *@
+                @if (flower.Quantity > 0)
+                {
+                    <button type="button" onclick="add(@flower.Id)" class="btn btn-primary">Add to cart</button>
+                }
+                else
+                {
+                    <span style="border: 1px solid; padding: 5px 8px; color: red; border-radius: 5px;">Out of stock</span>
+                }
             </div>
         </div>
-    } *@
+       
+    }
+    
+    @section Scripts {
+        @* <script>
+            function add(id) {
+                //alert("Flower with id " + id + " added to cart!");
+                $.ajax({
+                    url: '/Cart/AddToCart',
+                    type: 'POST',
+                    data: { flowerId: id },
+                    success: function (result) {
+                        alert("Flower with id " + id + " added to cart!");
+                        // Optionally, you can update the cart count or other UI elements here
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error adding flower to cart: " + error);
+                    }
+                });
+			}
+		</script> *@
 
+        @* Define a JavaScript for displaying the number of elements in cart at the cart button *@
+        <script>
+             //retrieve the user name
+            var usernameEl=document.getElementById("username");
+            var username=usernameEl.innerText;
+            //check if user is logged in, we need the cart count displayed only when the user is logged in.
+            if(usernameEl==null) {
+                window.location.href="/Identity/Account/Login";
+                // var username=usernameEl.innerText;
+                //  if(username.length<1) //means you are not signed in
+                // {
+                //     window.locations.href="/Identity/Account/Login";
+                // }
 
+            }
+            //force the user to sign in, otherwise it will give errors when trying to add flowers to the cart
+            async function add(flowerId){
+                try {
+                var response=await fetch(`/Cart/AddItem?flowerId=${flowerId}`);
+                if(response.status==200){
+                    var result=await response.json();
+                    var cartCountEl=document.getElementById("cartCount");
+				    cartCountEl.innerHTML=result;
+                    //if you have multiple flowers in the shop, whenever we click on any item, the page will redirect you to the cart item symbol
+                    window.location.href="#cartCount";
+                }
+                }
+                catch(err){
+                    console.log(err);
+                }
+
+            }
+
+        </script>
+    }
+
+  
+
+   
     <!--Define the properties of the displayed cards here-->
-    <div class="card mx-2 mb-4 mt-5" style="width: 16rem;">
+    @* <div class="card mx-2 mb-4 mt-5" style="width: 16rem;">
         <img src="~/img/Hydrangea Annabelle.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Flower Name</h5>
+            <h5 class="card-title">FlowerName</h5>
             <p class="card-text">
                 Latin description:
-                Type:
-                Price:
+                Genre:
+                Price: 
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
         </div>
@@ -91,7 +510,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -104,7 +523,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -117,7 +536,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -131,7 +550,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -144,7 +563,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -157,7 +576,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -170,7 +589,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -183,7 +602,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -196,7 +615,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -209,7 +628,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -222,7 +641,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -235,7 +654,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -248,7 +667,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -262,7 +681,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -276,7 +695,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -290,7 +709,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -304,7 +723,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -320,7 +739,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -335,7 +754,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -348,7 +767,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -363,7 +782,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -381,7 +800,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -394,7 +813,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -407,7 +826,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -421,7 +840,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -434,7 +853,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -447,7 +866,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -460,7 +879,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -475,7 +894,7 @@
         <h5 class="card-title">Flower Name</h5>
         <p class="card-text">
             Latin description:
-            Type:
+            Genre:
             Price:
         </p>
         <a href="#" class="btn btn-primary">Add to cart</a>
@@ -488,7 +907,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -502,7 +921,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -516,7 +935,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -530,7 +949,7 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -541,10 +960,10 @@
     <div class="card mx-2 mb-4 mt-5" style="width: 16rem;">
         <img src="~/img/Primula.jpg" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Flower Name</h5>
+            <h5 class="card-title">FlowerName</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
@@ -558,11 +977,11 @@
             <h5 class="card-title">Flower Name</h5>
             <p class="card-text">
                 Latin description:
-                Type:
+                Genre:
                 Price:
             </p>
             <a href="#" class="btn btn-primary">Add to cart</a>
         </div>
-    </div>
+    </div> *@
 
 </div>

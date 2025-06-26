@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Genre>
+@{
+
+}
+
+<h2>Flower categories</h2>
+
+@* Button with the add more name which will call the AddGenre function from the Genre Repository *@
+<a asp-action="AddGenre" asp-controller="Genre" class="btn btn-primary">Add More</a>
+
+<table class="table table-striped my-2">
+    <tr>
+        <th>Genre</th>
+        <th>Action</th>
+    </tr>
+
+    @* Loop which goes through the database *@
+    @foreach (var genre in Model)
+    {
+        <tr>
+            <td>@genre.GenreName</td>
+            <td>
+                @*  Edit for the updating.deleting the genre controller from the admin side *@
+                <a asp-action="UpdateGenre" asp-controller="Genre" asp-route-id="@genre.Id" class="btn btn-success">Edit</a>
+                <a asp-action="DeleteGenre" asp-controller="Genre" asp-route-id="@genre.Id" class="btn btn-danger" onclick="return window.confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+

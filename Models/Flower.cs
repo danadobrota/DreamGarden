@@ -39,5 +39,14 @@ namespace DreamGarden.Models
 
         public List<CartDetail> CartDetail { get; set; } //connection with the CartDetail database
 
+        public Stock Stock { get; set; }
+
+        //not to be entered in the database
+        [NotMapped]
+        public string GenreName { get; set; }
+
+        public int Quantity { get; set; }
+
+
     }
 }

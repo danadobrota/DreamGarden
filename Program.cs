@@ -1,4 +1,7 @@
+using DreamGarden;
 using DreamGarden.Data;
+using DreamGarden.Repositories;
+using DreamGarden.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+        options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services
@@ -16,6 +19,14 @@ builder.Services
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IHomeRepository, HomeRepository>();
+builder.Services.AddTransient<ICartRepository, CartRepository>();
+builder.Services.AddTransient<IUserOrderRepository,UserOrderRepository>();
+builder.Services.AddTransient<IStockRepository,StockRepository>();
+builder.Services.AddTransient<IFileService, FileService>(); 
+builder.Services.AddTransient<IFlowerRepository, FlowerRepository>();
+builder.Services.AddTransient<IGenreRepository, GenreRepository>();
+builder.Services.AddTransient<IReportRepository, ReportRepository>();
 
 var app = builder.Build();
 using (var scope=app.Services.CreateScope())

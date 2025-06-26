@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Flower>
+@{
+   
+}
+
+<h2>Flowers</h2>
+
+<a asp-action="AddFlower" asp-controller="Flower" class="btn btn-primary">Add More</a>
+
+@if (Model?.Count() > 0)
+{
+    <table class="table table-striped my-2">
+        <tr>
+            @* <th>Image</th> *@
+            <th>Flower</th>
+            <th>Latin Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Action</th> 
+        </tr>
+
+        @foreach (var flower in Model)
+        {
+            <tr>
+              @*   <td>
+                    @if (string.IsNullOrWhiteSpace(flower.Image))
+                    {
+                        <img src="/Images/.....png" style="width:80px;height:100px" alt="flower image" />
+                    }
+                    else
+                    {
+                        <img src="/images/@flower.Image" style="width:80px;height:100px" alt="flower image" />
+                    }
+                </td> *@
+                <td>@flower.FlowerName</td>
+                <td>@flower.LatinName</td>
+                <td>@flower.Genre.GenreName</td>
+                <td>@flower.Price</td>
+                <td>
+                    <a asp-action="UpdateFlower" asp-controller="Flower" asp-route-id="@flower.Id" class="btn btn-success">Edit</a>
+                    <a asp-action="DeleteFlower" asp-controller="Flower" asp-route-id="@flower.Id" class="btn btn-danger" onclick="return window.confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h3>No records</h3>
+}
+

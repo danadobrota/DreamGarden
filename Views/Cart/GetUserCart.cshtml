@@ -1,0 +1,86 @@
+﻿@model ShoppingCart
+@{
+    ViewData["Title"] = "GetUserCart";
+}
+
+<div style="width:90%;margin:auto" class="mt-2">
+    @* check conditions first *@
+    @if (Model != null && Model.CartDetails != null && Model.CartDetails.Count > 0)
+    {
+        <h5>My Cart</h5>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Flower</th>
+                @* <th>Image</th> *@
+                <th>Genre</th>
+                <th>Unit Price(EUR)</th>
+                <th>Total Price</th>
+                <th>Action</th>
+            </tr>
+            @foreach (var item in Model.CartDetails)
+            {
+                <tr>
+                    @* Display Flower Name in cart *@
+                    <td>@item.Flower.FlowerName</td>
+                    @*  <td>
+                        
+                         @if(string.IsNullOrEmpty(item.Flower.Image))
+                        {
+                            
+                            //<img src="@item.Flower.Image" alt="@item.Flower.FlowerName" style="width:50px;height:50px;" />
+                            <th>No Image</th>
+                        }
+                        else
+                        {
+                            <img src="/img/@item.Flower.Image" style="width:50px;height:50px" />
+
+                        }  
+                       
+
+                    </td>  *@
+                    @* Display Genre *@
+                    <td>@item.Flower.Genre.GenreName</td>
+                    @* Display Price *@
+                    <td>@item.Flower.Price X @item.Quantity</td>
+                    @* Total Price *@
+                    <td>@(item.Flower.Price * @item.Quantity)</td>
+                    <td>
+
+                        @* Two buttons for + and - to increase or decrease the quantity of the flower in the cart *@
+                        <a class="btn btn-info" href="/Cart/AddItem?flowerId=@item.FlowerId&&redirect=1">+</a>
+                        
+                           
+                        @* @if (item.Flower.Stock.Quantity > item.Quantity)
+                        { *@
+                            @*  + should be visible only if there is sufficient stock *@
+                      @*       <a class="btn btn-info" href="/Cart/AddItem?flowerId=@item.FlowerId&&redirect=1">+</a>
+                        }  *@
+                        @* else
+                        { *@
+                            @* otherwise show the out of stock button *@
+                       @*      <span style="border: 1px solid;padding: 8px 8px;color: red; border-radius: 5px;margin-right:4px">Out of stock</span>
+                        } *@
+                        @* decrement button for decreasing the quantity of flowers directly in the cart *@
+                        <a class="btn btn-info" href="/Cart/RemoveItem?flowerId=@item.FlowerId">-</a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="my-2">
+            <h5>Total (EUR):</h5> @(Model.CartDetails.Select(item=>item.Flower.Price*item.Quantity).Sum())
+           
+        </div>
+
+        @* Design the checkout button *@
+        <div class="my-2">
+            <a class="btn btn-success" href="/Cart/Checkout">Checkout</a>
+        </div> 
+    }
+    else
+    {
+        <h5>Cart is empty</h5>
+    }
+</div>
+

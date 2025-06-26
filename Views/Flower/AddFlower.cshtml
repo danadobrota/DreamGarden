@@ -1,0 +1,53 @@
+﻿@model FlowerDTO
+@{
+   
+}
+<div style="width:50%">
+    <h2> Add Flower </h2>
+    <a asp-action="Index" asp-controller="Flower" class="btn btn-primary">Back</a>
+    <form asp-action="AddFlower" enctype="multipart/form-data">
+        @* <input type="hidden" asp-for="Id" /> *@
+
+        <div class="my-2">
+            <label>Flower*</label>
+            <input type="text" class="form-control" asp-for="FlowerName" />
+            <span asp-validation-for="FlowerName" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>LatinName*</label>
+            <input type="text" class="form-control" asp-for="LatinName" />
+            <span asp-validation-for="LatinName" class="text-danger"></span>
+        </div>
+
+		@* Genre is a drop down list, so we will use asp-items to bind the list of genres from the model. *@
+        <div class="my-2">
+            <label>Genre*</label>
+            <select class="form-control" asp-for="GenreId" asp-items="Model.GenreList">
+                <option value="">Select Genre</option>
+            </select>
+            <span asp-validation-for="GenreId" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Description*</label>
+            <input type="text" class="form-control" asp-for="Description" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Price*</label>
+            <input type="number" class="form-control" asp-for="Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Image</label>
+            <input type="file" class="form-control" asp-for="ImageFile" />
+        </div>
+
+        <div class="my-2">
+            <button type="submit" class="btn btn-info">Add</button>
+        </div>
+    </form>
+</div>

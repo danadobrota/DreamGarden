@@ -18,6 +18,10 @@ namespace DreamGarden.Models
         [Required]
         public int Quantity { get; set; }
 
+        //annotations for the properties
+        [Required]
+        public double UnitPrice { get; set; } //price of the flower at the time of adding to cart   
+
         public Flower Flower { get; set;}
 
         public ShoppingCart ShoppingCart { get; set; } //connection with the ShoppingCart database

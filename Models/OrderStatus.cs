@@ -6,7 +6,7 @@ namespace DreamGarden.Models
     [Table("OrderStatus")]
     public class OrderStatus
     {
-        public int ID { get; set; } //primary key in the database
+        public int Id { get; set; } //primary key in the database
 
          //annotations for the properties
         [Required]

@@ -3,10 +3,20 @@
 @inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
+
+    <!--cart icon near Register and Log in-->
+    <li class="nav-item">
+        <a class="nav-link" href="/Cart/GetUserCart">
+            <!--we start with 0 items in the cart-->
+            <span id="cartCount" class="badge text-bg-info">0</span>
+            <i class="bi bi-cart text-white"></i>
+        </a>
+    </li>
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!
+        <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                Hello <span id="username">@User.Identity?.Name</span>!
             @if(User.IsInRole("Admin"))
             {
                 //adding code to have (Admin) displayed near hello if this is a admin
@@ -23,15 +33,7 @@
 }
 else
 {
-    <!--cart icon near Register and Log in-->
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <!--we start with 0 items in the cart-->
-            <span class="badge text-bg-info">(0)</span>
-            <i class="bi bi-cart text-white"></i>
-        </a>
-    </li>
-   
+      
     <li class="nav-item">
         <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>

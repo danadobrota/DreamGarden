@@ -1,0 +1,57 @@
+﻿@model FlowerDTO
+@{
+  
+}
+<div style="width:50%">
+    <h2> Update Flower </h2>
+    <a asp-action="Index" asp-controller="Flower" class="btn btn-primary">Back</a>
+    <form asp-action="UpdateFlower" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Image" />
+
+        <div class="my-2">
+            <label>Flower*</label>
+            <input type="text" class="form-control" asp-for="FlowerName" />
+            <span asp-validation-for="FlowerName" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Latin Name*</label>
+            <input type="text" class="form-control" asp-for="LatinName" />
+            <span asp-validation-for="LatinName" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Genre*</label>
+            <select class="form-control" asp-for="GenreId" asp-items="Model.GenreList">
+                <option value="">Select Genre</option>
+            </select>
+            <span asp-validation-for="GenreId" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Description*</label>
+            <input type="text" class="form-control" asp-for="Description" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Price*</label>
+            <input type="number" class="form-control" asp-for="Price" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="my-2">
+            <label>Image</label>
+            @if (!string.IsNullOrEmpty(Model.Image))
+            {
+                <img src="/images/@Model.Image" style="width:100px;height:80px" />
+            }
+            <input type="file" class="form-control" asp-for="ImageFile"/>
+        </div>
+
+        <div class="my-2">
+            <button type="submit" class="btn btn-info">Update</button>
+        </div>
+    </form>
+</div>
