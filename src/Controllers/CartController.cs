@@ -64,9 +64,6 @@ namespace DreamGarden.Controllers
                 if (!isCheckedOut)
                     return RedirectToAction(nameof(OrderFailure));  
             return RedirectToAction(nameof(OrderSuccess));
-
-
-            return RedirectToAction("Index","Home"); // Redirect to home page after successful checkout
         }
 
         public IActionResult OrderSuccess()
