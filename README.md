@@ -7,8 +7,8 @@ This project involves building a web application that allows users to browse pro
 
 For this project I have selected the ASP.NET Core Web App MVC template.
 
-(./doc/template.png)
 
+![Template](src/Doc/template.png)
 
 
 
@@ -19,7 +19,7 @@ MVC Pattern contains the following folders I have expanded and worked on :
 • View: Displays the data to the user, worked on Razor  for displaying the user interface.
 • Controller: Handles user input, interacts with the model, and chooses which view to display. 
 
-					
+![Model View Controller](src/Doc/Model%20View%20Controller.png)
 
 # Administrative 
 
