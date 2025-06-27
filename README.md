@@ -1,10 +1,13 @@
-Project: Order Management Platform for an Online Store!
-Dev Academy Project "DreamGarden"![image](https://github.com/user-attachments/assets/413ccb30-1bb3-4bc7-be0a-9edda81c91e1)
+# Dev Academy Project "DreamGarden"
+# Project: Order Management Platform for an Online Store!
 
 
+# Short description
 This project involves building a web application that allows users to browse products, place orders, and manage their purchases. It will be designed following Object-Oriented Programming (OOP) principles, leverage SQL Server for data persistence, expose functionalities via a RESTful API, and implement design patterns for maintainability and scalability. The project also requires integration with Postman/Fiddler for API testing and optimizations to improve performance.
 
 For this project I have selected the ASP.NET Core Web App MVC template.
+
+(./doc/template.png)
 
 
 
@@ -18,6 +21,7 @@ MVC Pattern contains the following folders I have expanded and worked on :
 
 					
 
+# Administrative 
 
 For this project, I have combined my passion for gardening with my technical skills. The database catalog features products and photos, all of which are sourced from my own home garden.
 The images have been loaded inside the img folder of the ASP.NET wwwroot folder 
@@ -45,5 +49,3 @@ History of Github
 
 For the authentication part I have used the ASP.NET Core Identity API to support the UI login functionality.
 
-
-![image](https://github.com/user-attachments/assets/91bddc53-5ba4-4e58-98d3-24a5cabbbb28)
